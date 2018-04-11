@@ -1,0 +1,72 @@
+<div class="col-md-12">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/inicio">Inicio</a></li>
+      <li class="breadcrumb-item"><a routerLink="/compras">Compras</a></li>
+      <li class="breadcrumb-item"><a routerLink="/listado-proveedores">Proveedores</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Añadir Proveedor</li>
+    </ol>
+  </nav>
+</div>
+<div class="col-md-12 titulo">
+  <span>Proveedores</span>
+  <button class="btn btn-primary" routerLink="/listado-proveedor">
+    <strong>Volver</strong>
+  </button>
+</div>
+<!-- FORMULARIO -->
+
+<div class="col-md-8 offset-md-2 col-12">
+  <div class="formulario">
+  <form [formGroup]="proveedorForm" (ngSubmit)="crearProv()">
+  <!-- (ngSumbit) Detecta cuando el usuario le da a submit -->
+  
+  <!-- Name para asociarlo luego a la propiedad.-->
+  <!-- NgModel sirve para enlazar ese campo con el objeto que se va a crear en el formulario. -->
+  <div class="form-group">
+  <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre">
+  </div>
+  <div class="form-group">
+  <input type="text" class="form-control" formControlName="cif" placeholder="Cif" #cif>
+  </div>
+  <div class="form-group">
+  <input type="text" class="form-control" formControlName="domicilio" placeholder="Domicilio">
+  </div>
+  <div class="form-group">
+  <input type="number" class="form-control" formControlName="cp" placeholder="CP">
+  </div>
+  <div class="form-group">
+  <input type="text" class="form-control" formControlName="localidad" placeholder="Localidad">
+  </div>
+  <div class="form-group">
+  <select class="form-control" formControlName="provincia">
+  <option *ngFor="let provincia of provincias"
+  [value]="provincia"
+  [ngClass]="{bandera: provincia === 'Madrid'}"> <!-- [] es un valor javaScript -->
+  {{provincia}}
+  </option>
+  </select>
+  </div>
+  <div class="form-group">
+  <input type="text" class="form-control" formControlName="telefono" placeholder="Telefono">
+  </div>
+  <div class="form-group">
+  <input type="email" class="form-control" formControlName="email" placeholder="Email">
+  </div>
+  <div class="form-group">
+  <input type="text" class="form-control" formControlName="contacto" placeholder="Contacto">
+  </div>
+  <button type="submit" class="btn btn-primary">
+    <span *ngIf="!enviando">Añadir proveedor</span>
+    <span *ngIf="enviando">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>
+  </button>
+  <button routerLink="/listado-proveedores" class="btn btn-danger">
+  Cancelar
+  </button>
+  </form>
+  <p class="alert alert-warning"
+      [@alerta]="estadoAlerta">{{mensaje}}</p>
+  </div>
+  </div>
